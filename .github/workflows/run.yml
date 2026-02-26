@@ -1,0 +1,20 @@
+name: 定时钉钉推送
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'  # 每10分钟一次（测试用）
+  workflow_dispatch:        # 允许手动点一下运行
+
+jobs:
+  run-push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run push
+        run: python ding.py
